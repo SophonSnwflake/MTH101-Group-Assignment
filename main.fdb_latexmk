@@ -1,11 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 0 "main.xdv" "main.pdf" "main" 0 -1
-  "main.xdv" 1794991003 24980 786c7c518326cbdc18e9a73718c3af2f "xelatex"
+["xdvipdfmx"] 1795426674.23647 "main.xdv" "main.pdf" "main" 1795426674.77377 0
+  "main.xdv" 1795426674 48892 e135b9b1c9d72692ff17173b7d560543 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1794991002.90279 "d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex" "main.xdv" "main" 1794991003.55547 2
-  "d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex" 1794991003 5710 b4143b0549aa05d330d905b02b64177d ""
+["xelatex"] 1795426673.65896 "main.tex" "main.xdv" "main" 1795426674.77185 0
   "d:/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1791988822 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "d:/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1791990643 1528 7e12f4c0fcf5a072cebdcfbfc610f54c ""
   "d:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1791988078 1004 54797486969f23fa377b128694d548df ""
@@ -46,7 +45,6 @@
   "d:/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty" 1791988305 72619 ee90b6612147680fd73c3b1406a74245 ""
   "d:/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty" 1791988305 12494 0c0cdb824278a4d51cefeb2e79901315 ""
   "d:/texlive/2026/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1791988710 46885 8953c67ffba03252c6090aa19568b8ba ""
-  "d:/texlive/2026/texmf-dist/tex/latex/float/float.sty" 1791988804 6749 16d2656a1984957e674b149555f1ea1d ""
   "d:/texlive/2026/texmf-dist/tex/latex/geometry/geometry.sty" 1791988874 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "d:/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1791988923 1224 978390e9c2234eab29404bc21b268d1e ""
   "d:/texlive/2026/texmf-dist/tex/latex/graphics-def/xetex.def" 1791988923 14788 68cddb076430acc268ef4203b6523355 ""
@@ -71,12 +69,12 @@
   "d:/texlive/2026/texmf-dist/web2c/texmf.cnf" 1791988035 43630 e9fa012910491fe5ae08a72c3c2997a7 ""
   "d:/texlive/2026/texmf-var/web2c/xetex/xelatex.fmt" 1791990826 5948960 7616ea0cbf1542634ee1a6b960b24471 ""
   "d:/texlive/2026/texmf.cnf" 1791990661 713 e69b156964470283e0530f5060668171 ""
+  "figures/overdamped_free_response.pdf" 1794990777 31798 bb4fc2da894ba166a2cce2f699806849 ""
   "figures/overdamped_poles_symbolic.pdf" 1794990277 31612 64d00c87996359c1b357b042354c61c5 ""
   "figures/vehical.pdf" 1794984988 27194 e2f7cfef2ffab7797946a44a074165c7 ""
-  "figures_free_response.pdf" 0 -1 0 ""
-  "main.aux" 1794991003 1548 00c8a1312a360d07ed20705e30da3e66 "xelatex"
-  "main.out" 1794991003 749 2b2497997074fafde8175fcbcd6ea840 "xelatex"
-  "main.tex" 1794991003 5710 b4143b0549aa05d330d905b02b64177d ""
+  "main.aux" 1795426674 2325 d08fb8089fd9218a3dc8bcea4dfe157d "xelatex"
+  "main.out" 1795426674 739 dd1df59fa26e9ffb884879d30757f443 "xelatex"
+  "main.tex" 1795426627 7559 d81ce41512423bd925fc80209de88900 ""
   (generated)
   "main.aux"
   "main.log"

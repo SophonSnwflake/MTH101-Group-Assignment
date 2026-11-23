@@ -6,230 +6,218 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{tabularx}
-\usepackage{float}
 
-\title{Methematical Modelling and Dynamic Response Analysis of a Suspension System}
+\title{Mathematical Modelling and Dynamic Response Analysis of a Simplified Vehicle Suspension}
 \author{}
 \date{}
 
 \begin{document}
 
 \maketitle
+
 \section{Background}
 
-Suspension system is a mechanical system aiming to reduce the load's movement range in different road situations. Often used in the cars or bicycles.
-This article firstly models the basic movement of a simplified suspension system containing a ideal spring and ideal damping.
-Then analyze the vibration response in different situations.
+A vehicle suspension connects the vehicle body to the road through elastic and
+dissipative elements. Its purpose is to limit the transmission of road-induced
+vibration while maintaining acceptable suspension motion. A real suspension
+contains tyres, linkages and several distributed masses, but a simpler model is
+more suitable for deriving the main dynamic relationships analytically. This
+report therefore considers the vertical motion associated with one wheel and
+represents the supported part of the vehicle body by a single equivalent mass.
+The investigation first derives the governing ordinary differential equation
+and its transfer function using Newton's second law and the Laplace transform.
+The free response is then used to show how the system poles and damping determine
+whether the motion decays with or without oscillation. The same model will later
+be used to investigate how a prescribed road displacement is transmitted to the
+vehicle body.
 
-\section{Basic Car Frame Model}
+% TODO: Add academic sources on suspension modelling and parameter selection.
 
-We select one single wheel to analyze, the suspension system can be simplified as a const mass connected with wheel
-together with a spring and a damper.
+\section{Description of the Model}
+
+The suspension is represented by a single-degree-of-freedom base-excitation
+model. The equivalent sprung mass is connected to a moving lower support by a
+linear spring and a viscous damper in parallel, as shown in
+Figure~\ref{fig:vehicle}. In this approximation, the lower support follows the
+road profile directly.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/vehical.pdf}
-    \caption{Vehicle schematic.}
+    \includegraphics[width=0.68\textwidth]{figures/vehical.pdf}
+    \caption{Vehicle schematic and equivalent single-degree-of-freedom suspension model.}
     \label{fig:vehicle}
 \end{figure}
 
-We have:
+\begin{samepage}
+The model is based on the following assumptions:
+\begin{itemize}
+    \item only vertical motion is considered;
+    \item the spring and damper are linear;
+    \item the wheel mass and tyre deformation are neglected;
+    \item the lower support follows the road displacement; and
+    \item displacement is measured from static equilibrium, so gravity is
+          balanced by the spring preload.
+\end{itemize}
+\end{samepage}
 
-\vspace{\baselineskip} %空行
+Both displacements are positive upwards. The variables and parameters are
+defined below.
 
 \begingroup
 \renewcommand{\arraystretch}{1.2}
-
 \noindent
 \begin{tabularx}{\linewidth}{@{}l X l@{}}
-    \(m\) & Equivalent vehicle mass
-          & \(\mathrm{kg}\) \\
-
-    \(k\) & Spring stiffness
-          & \(\mathrm{N/m}\) \\
-
-    \(c\) & Damping coefficient
-          & \(\mathrm{N \cdot s/m}\) \\
-
-    \(x(t)\) & Vertical displacement of the vehicle frame
-               from its static equilibrium position
-             & \(\mathrm{m}\) \\
-
-    \(y(t)\) & Vertical displacement of the road input
-               from its reference position
-             & \(\mathrm{m}\) \\
-
-    \(F_k\) & Spring force
-            & \(\mathrm{N}\) \\
-
-    \(F_c\) & Damping force
-            & \(\mathrm{N}\) \\
+    \textbf{Symbol} & \textbf{Meaning} & \textbf{Unit} \\
+    \(m\) & Equivalent sprung mass supported by one suspension & \(\mathrm{kg}\) \\
+    \(k\) & Spring stiffness & \(\mathrm{N/m}\) \\
+    \(c\) & Viscous damping coefficient & \(\mathrm{N\,s/m}\) \\
+    \(x(t)\) & Vehicle-body displacement from static equilibrium & \(\mathrm{m}\) \\
+    \(y(t)\) & Road or lower-support displacement & \(\mathrm{m}\) \\
+    \(F_k\) & Incremental spring force on the mass & \(\mathrm{N}\) \\
+    \(F_c\) & Incremental damping force on the mass & \(\mathrm{N}\) \\
 \end{tabularx}
-
 \endgroup
 
-\vspace{\baselineskip} %空行
-\vspace{\baselineskip} %空行
-\vspace{\baselineskip} %空行
-\vspace{\baselineskip} %空行
-
-The force from spring to the load is:
-
-\[F_k = -k(x-y)\]
-
-\vspace{\baselineskip} %空行
-
-Damping force is according to relevant velocity:
-
-\[F_c = -c(x-y)' = -c(\dot{x}-\dot{y})\]
-
-\vspace{\baselineskip} %空行
-
-According to Newton's second law:
-
-\[m\ddot{x}=F_k+F_c\]
-
-\[m\ddot{x}=-k(x+y)-c(\dot{x}-\dot{y})\]
-
- 
-\begin{equation}
-    m\ddot{x}+c\dot{x}+kx = c\dot{y}+ky.
-    \label{eq:motion}
-\end{equation}
-
-\vspace{\baselineskip} %空行
-
-The equation (1) we call that basic motion differential equation.
-
-\vspace{\baselineskip} %空行
-
-Taking the Laplace transform of the both side of the equation (1):
-
-\[m[s^2X(s)-sx(0)-x'(0)] + c[sX(s) - x(0)] + kX(s) = c[sY(s) - y(0)] + kY(s)\]
-
-\[(ms^2 + cs + k)X(s) - msx(0) - mx'(0) - cx(0) = (cs + k)Y(s) - cy(0)\]
-
-\vspace{\baselineskip} %空行
-
-Let \(x(0)\), \(x'(0)\), \(y(0)\) = 0, we get the system's transform function:
-
-\[H(s) = \frac{X(s)}{Y(s)} = \frac{cs + k}{ms^2 + cs + k}\]
-
-
-\vspace{\baselineskip} %空行
-
-
-
-
-\section{Motion Analysis}
-
-\vspace{\baselineskip} %空行
-
-\subsection{Free Response Analysis: Car's free rebound after compression}
-
-\vspace{\baselineskip} %空行
-
-
-let \(x(0)\) = \(x_0\) < 0, \(x'(0) = 0\), \(y(t) = 0\)
-
-\[(ms^2 + cs + k)X(s) - (ms + c)x_0 = (cs + k)Y(s)\]
-
-\[(ms^2 + cs + k)\frac{X(s)}{Y(s)} - \frac{(ms + c)x_0}{Y(s)} = (cs + k)Y(s)\]
-
-\[\frac{X(s)}{Y(s)} = \frac{cs + k + \frac{(cs + c)x_0}{Y(s)}}{ms^2 + cs + k}\]
-
-\begin{equation}
-X(s) = \frac{(cs + k)Y(s) + (ms + c)x_0}{ms^2 + cs + k}
-    \label{eq:motion}
-\end{equation}
-
-Because \(y(t) = 0\), so \(Y(s) = 0\)
-
-\vspace{\baselineskip} %空行
-
-let \(ms^2 + cs + k = 0\) to find poles of the system.
-
-\[s = \frac{-c \pm \sqrt{c^2-4mk}}{2m}\]
-
-When \(c^2 - 4mk > 0\), s have two real roots
-
-\vspace{0.2cm} 
-
-When \(c^2 - 4mk = 0\), s have one real root.
-
-\vspace{0.2cm} 
-
-When \(c^2 - 4mk < 0\), s have two complex roots.
-
-\vspace{\baselineskip} %空行
-\vspace{\baselineskip} %空行
-
-When \(c^2 \neq 4mk\):
-
-\[X(s) = \frac{A}{s - \frac{-c - \sqrt{c^2 - 4mk}}{2m}} + \frac{B}{s - \frac{-c + \sqrt{c^2 - 4mk}}{2m}}\]
-
-\vspace{0.2cm} 
-
-\[X(s) = \frac{m[(A+B)s - \frac{A}{2m}(-c + \sqrt{c^2 - 4mk}) - \frac{B}{2m}(-c - \sqrt{c^2- 4mk})]}{(s - \frac{-c - \sqrt{c^2 - 4mk}}{2m})(s - \frac{-c + \sqrt{c^2 - 4mk}}{2m})}\]
-
-\vspace{\baselineskip} %空行
-
-So:
-
+The spring force depends on relative displacement, whereas the damping force
+depends on relative velocity:
 \[
-\begin{aligned}
-&\begin{cases}
-    m(A+B)=mx_0, \\[8pt]
-    \frac{m}{2m}
-    \left[
-        A(-c+\sqrt{c^2-4mk})
-        +B(-c-\sqrt{c^2-4mk})
-    \right]=-cx_0.
-\end{cases}
-\\[20pt]
-&\begin{cases}
-    A=\frac{x_0(\sqrt{c^2-4mk}-c)}
-           {2\sqrt{c^2-4mk}}, \\[12pt]
-    B=\frac{x_0(\sqrt{c^2-4mk}+c)}
-           {2\sqrt{c^2-4mk}}.
-\end{cases}
-\end{aligned}
+    F_k=-k(x-y),
+    \qquad
+    F_c=-c(\dot{x}-\dot{y}).
 \]
+Newton's second law therefore gives
+\[
+    m\ddot{x}=F_k+F_c
+    =-k(x-y)-c(\dot{x}-\dot{y}),
+\]
+or, equivalently,
+\begin{equation}
+    m\ddot{x}+c\dot{x}+kx=c\dot{y}+ky.
+    \label{eq:governing}
+\end{equation}
 
-\vspace{\baselineskip} %空行
+Applying the Laplace transform to Equation~\eqref{eq:governing} gives
+\begin{align}
+    &(ms^2+cs+k)X(s)-msx(0)-m\dot{x}(0)-cx(0) \notag\\
+    &\hspace{4cm}=(cs+k)Y(s)-cy(0).
+    \label{eq:laplace-general}
+\end{align}
+For zero initial conditions immediately before the input is applied, the road
+displacement-to-body displacement transfer function is
+\begin{equation}
+    G(s)=\frac{X(s)}{Y(s)}
+    =\frac{cs+k}{ms^2+cs+k}.
+    \label{eq:transfer-function}
+\end{equation}
+This is a base-displacement transfer function. It is different from the
+force-to-displacement transfer function of a mass subjected to an external
+force, whose numerator would be unity.
 
-Taking the inverse Laplace transform of both sides of the equation (2):
+\section{Explanation of the Solutions}
 
-\[x(t) = Ae^{s_-t} + Be^{s_+t}\]
+\subsection{Free Response After an Initial Compression}
 
-\vspace{\baselineskip} %空行
+To identify the system's natural modes, the road is fixed at \(y(t)=0\), and the
+mass is released from rest with
+\[
+    x(0)=x_0,
+    \qquad
+    \dot{x}(0)=0.
+\]
+With the upward-positive convention, \(x_0<0\) represents an initial downward
+compression. Substituting these conditions directly into
+Equation~\eqref{eq:laplace-general} gives
+\begin{equation}
+    X_f(s)=\frac{(ms+c)x_0}{ms^2+cs+k}.
+    \label{eq:free-transform}
+\end{equation}
+No division by \(Y(s)\) is required because the free-response input is zero.
 
-where:
+Define
+\[
+    \Delta=\sqrt{c^2-4mk},
+    \qquad
+    s_{\pm}=\frac{-c\pm\Delta}{2m}.
+\]
+When the two poles are distinct, Equation~\eqref{eq:free-transform} can be
+expanded as
+\[
+    X_f(s)=\frac{A}{s-s_-}+\frac{B}{s-s_+}.
+\]
+The initial displacement and velocity require
+\[
+    A+B=x_0,
+    \qquad
+    s_-A+s_+B=0,
+\]
+which give
+\[
+    A=\frac{x_0}{2}\left(1-\frac{c}{\Delta}\right),
+    \qquad
+    B=\frac{x_0}{2}\left(1+\frac{c}{\Delta}\right).
+\]
+Hence,
+\begin{equation}
+    x_f(t)=Ae^{s_-t}+Be^{s_+t}.
+    \label{eq:free-distinct}
+\end{equation}
 
-\[s_{\pm} = \frac{-c \pm\sqrt{c^2-4mk}}{2m}\]
+If \(c^2>4mk\), both poles are real and negative, so the system is overdamped
+and returns to equilibrium without oscillating. The pole locations and the
+corresponding qualitative response are shown in
+Figure~\ref{fig:overdamped-summary}.
 
-\vspace{\baselineskip} %空行
-
-When \(c^2-4mk>0\), the poles lie on the negative real axis,
-as shown in Figure~\ref{fig:overdamped}.
-
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]
-        {figures/overdamped_poles_symbolic.pdf}
-    \caption{Pole locations in the overdamped case.}
-    \label{fig:overdamped}
+    \begin{subfigure}[t]{0.46\textwidth}
+        \centering
+        \includegraphics[height=3.3cm]{figures/overdamped_poles_symbolic.pdf}
+        \caption{Two negative real poles.}
+        \label{fig:overdamped-poles}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.46\textwidth}
+        \centering
+        \includegraphics[height=3.3cm]{figures/overdamped_free_response.pdf}
+        \caption{Non-oscillatory decay to equilibrium.}
+        \label{fig:overdamped-response}
+    \end{subfigure}
+    \caption{Qualitative pole locations and free response in the overdamped case.}
+    \label{fig:overdamped-summary}
 \end{figure}
 
-That means \(x(t)\) is exponential convergence.
+For critical damping, \(c^2=4mk\), the poles coincide. Writing
+\(\alpha=c/(2m)\), the repeated pole produces a term proportional to
+\(te^{-\alpha t}\), and the response is
+\begin{equation}
+    x_f(t)=x_0(1+\alpha t)e^{-\alpha t}.
+    \label{eq:free-critical}
+\end{equation}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]
-        {figures\overdamped_free_response.pdf}
-    \caption{Overdamped free response.}
-    \label{fig:overdamped}
-\end{figure}
+For the underdamped case, \(c^2<4mk\), define
+\[
+    \omega_n=\sqrt{\frac{k}{m}},
+    \qquad
+    \omega_d=\sqrt{\omega_n^2-\alpha^2}.
+\]
+Combining the complex-conjugate terms in Equation~\eqref{eq:free-distinct}
+gives the real response
+\begin{equation}
+    x_f(t)=x_0e^{-\alpha t}
+    \left[
+        \cos(\omega_dt)
+        +\frac{\alpha}{\omega_d}\sin(\omega_dt)
+    \right].
+    \label{eq:free-underdamped}
+\end{equation}
+The factor \(e^{-\alpha t}\) controls the decay rate, while \(\omega_d\)
+determines the oscillation frequency. This free-response analysis identifies
+the transient part of the motion; evaluating vibration isolation under road
+excitation additionally requires the non-zero input \(y(t)\).
 
+% Planned continuation:
+% - Sinusoidal road-displacement response obtained by the Laplace transform.
+% - Magnitude and phase of G(i omega), followed by parameter comparison.
+% - Conclusion and references after the main analysis is complete.
 
 \end{document}
