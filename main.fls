@@ -139,6 +139,12 @@ INPUT ./figures/overdamped_poles_symbolic.pdf
 INPUT ./figures/overdamped_free_response.pdf
 INPUT ./figures/overdamped_free_response.pdf
 INPUT ./figures/overdamped_free_response.pdf
+INPUT ./figures/step_response_comparison.pdf
+INPUT ./figures/step_response_comparison.pdf
+INPUT ./figures/step_response_comparison.pdf
+INPUT ./figures/sinusoidal_transmissibility.pdf
+INPUT ./figures/sinusoidal_transmissibility.pdf
+INPUT ./figures/sinusoidal_transmissibility.pdf
 INPUT main.aux
 INPUT ./main.out
 INPUT ./main.out

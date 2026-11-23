@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1795426674.23647 "main.xdv" "main.pdf" "main" 1795426674.77377 0
-  "main.xdv" 1795426674 48892 e135b9b1c9d72692ff17173b7d560543 "xelatex"
+["xdvipdfmx"] 1795444658.08829 "main.xdv" "main.pdf" "main" 1795444658.66221 0
+  "main.xdv" 1795444658 80312 0b69d1ef5b28ee175430b3e20eddbbb7 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1795426673.65896 "main.tex" "main.xdv" "main" 1795426674.77185 0
+["xelatex"] 1795444657.40924 "main.tex" "main.xdv" "main" 1795444658.66027 0
   "d:/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1791988822 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "d:/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1791990643 1528 7e12f4c0fcf5a072cebdcfbfc610f54c ""
   "d:/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1791988078 1004 54797486969f23fa377b128694d548df ""
@@ -71,10 +71,12 @@
   "d:/texlive/2026/texmf.cnf" 1791990661 713 e69b156964470283e0530f5060668171 ""
   "figures/overdamped_free_response.pdf" 1794990777 31798 bb4fc2da894ba166a2cce2f699806849 ""
   "figures/overdamped_poles_symbolic.pdf" 1794990277 31612 64d00c87996359c1b357b042354c61c5 ""
+  "figures/sinusoidal_transmissibility.pdf" 1795443315 64881 69d2f0aa32df01df7a8794046cc5ecb1 ""
+  "figures/step_response_comparison.pdf" 1795443312 64044 7028793dad1cfd0ed5e2cc57bbc3e2ef ""
   "figures/vehical.pdf" 1794984988 27194 e2f7cfef2ffab7797946a44a074165c7 ""
-  "main.aux" 1795426674 2325 d08fb8089fd9218a3dc8bcea4dfe157d "xelatex"
-  "main.out" 1795426674 739 dd1df59fa26e9ffb884879d30757f443 "xelatex"
-  "main.tex" 1795426627 7559 d81ce41512423bd925fc80209de88900 ""
+  "main.aux" 1795444658 4026 9e0857e5d7b94f259fe6cdf09534c0a0 "xelatex"
+  "main.out" 1795444658 1140 0c8553dd6dd65c91775f7e97f7177909 "xelatex"
+  "main.tex" 1795444635 12443 29c5bc70f3b8bbe1a5cfec3f242f2a28 ""
   (generated)
   "main.aux"
   "main.log"

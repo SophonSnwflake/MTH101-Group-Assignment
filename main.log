@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.10.14)  23 NOV 2026 17:37
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.10.14)  23 NOV 2026 22:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -389,21 +389,26 @@ File: figures/overdamped_poles_symbolic.pdf Graphic file (type pdf)
 <use figures/overdamped_poles_symbolic.pdf>
 File: figures/overdamped_free_response.pdf Graphic file (type pdf)
 <use figures/overdamped_free_response.pdf>
- [3] (./main.aux)
+ [3] [4]
+File: figures/step_response_comparison.pdf Graphic file (type pdf)
+<use figures/step_response_comparison.pdf>
+File: figures/sinusoidal_transmissibility.pdf Graphic file (type pdf)
+<use figures/sinusoidal_transmissibility.pdf>
+ [5] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: DD1DF59FA26E9FFB884879D30757F443;739.
+(rerunfilecheck)             Checksum: 0C8553DD6DD65C91775F7E97F7177909;1140.
  ) 
 Here is how much of TeX's memory you used:
- 10802 strings out of 468168
- 171176 string characters out of 5436523
- 596236 words of memory out of 5000000
- 39425 multiletter control sequences out of 15000+600000
+ 10833 strings out of 468168
+ 172286 string characters out of 5436523
+ 597389 words of memory out of 5000000
+ 39454 multiletter control sequences out of 15000+600000
  632695 words of font info for 65 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  72i,9n,79p,321b,552s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.xdv (3 pages, 48892 bytes).
+Output written on main.xdv (5 pages, 80312 bytes).

@@ -215,9 +215,139 @@ determines the oscillation frequency. This free-response analysis identifies
 the transient part of the motion; evaluating vibration isolation under road
 excitation additionally requires the non-zero input \(y(t)\).
 
-% Planned continuation:
-% - Sinusoidal road-displacement response obtained by the Laplace transform.
-% - Magnitude and phase of G(i omega), followed by parameter comparison.
-% - Conclusion and references after the main analysis is complete.
+\subsection{Step Response}
+
+Consider an idealised road step \(y(t)=Y_0u(t)\), with the system at rest for
+\(t<0\). Since \(Y(s)=Y_0/s\), Equation~\eqref{eq:transfer-function} gives
+\begin{equation}
+    X(s)=\frac{Y_0(cs+k)}{s(ms^2+cs+k)}.
+    \label{eq:step-transform}
+\end{equation}
+The pole at \(s=0\) is introduced by the step input; the two system poles remain
+\(s_+\) and \(s_-\). For distinct poles, partial fractions give
+\[
+    \frac{X(s)}{Y_0}
+    =\frac{1}{s}
+    -\frac{s_+}{s_+-s_-}\frac{1}{s-s_+}
+    +\frac{s_-}{s_+-s_-}\frac{1}{s-s_-},
+\]
+and hence
+\begin{equation}
+    x(t)=Y_0\left[
+        1+\frac{s_-e^{s_-t}-s_+e^{s_+t}}{s_+-s_-}
+    \right].
+    \label{eq:step-distinct}
+\end{equation}
+For critical damping this limiting expression becomes
+\begin{equation}
+    x(t)=Y_0\left[1+(\alpha t-1)e^{-\alpha t}\right],
+    \label{eq:step-critical}
+\end{equation}
+whereas for the underdamped case it can be written as
+\begin{equation}
+    x(t)=Y_0\left\{1-e^{-\alpha t}\left[
+        \cos(\omega_dt)-\frac{\alpha}{\omega_d}\sin(\omega_dt)
+    \right]\right\}.
+    \label{eq:step-underdamped}
+\end{equation}
+The final-value theorem confirms that \(x(t)\to Y_0\). The initial road jump is
+an idealisation: its infinite velocity produces an impulsive damper force, so a
+smooth bump would be more realistic.
+
+\subsection{Sinusoidal Road Response}
+
+For the causal input \(y(t)=Y_0\sin(\omega t)u(t)\),
+\[
+    Y(s)=\frac{Y_0\omega}{s^2+\omega^2},
+    \qquad
+    X(s)=\frac{Y_0\omega(cs+k)}
+    {(s^2+\omega^2)(ms^2+cs+k)}.
+\]
+The poles \(s_\pm\) generate a decaying transient, while \(s=\pm i\omega\)
+come from the forcing and generate the steady oscillation. Define
+\begin{equation}
+    H(i\omega)=\frac{k+ic\omega}{k-m\omega^2+ic\omega}
+    =M(\omega)e^{i\phi(\omega)},
+    \label{eq:frequency-response}
+\end{equation}
+where
+\begin{align}
+    M(\omega)
+    &=\sqrt{\frac{k^2+c^2\omega^2}
+    {(k-m\omega^2)^2+c^2\omega^2}}, \\
+    \phi(\omega)
+    &=\operatorname{atan2}(c\omega,k)
+      -\operatorname{atan2}(c\omega,k-m\omega^2).
+\end{align}
+For distinct system poles, the complete zero-state response is
+\begin{equation}
+    x(t)=Y_0M\sin(\omega t+\phi)
+    +C_+e^{s_+t}+C_-e^{s_-t},
+    \label{eq:sine-complete}
+\end{equation}
+with
+\[
+    C_+=\frac{Y_0M(s_-\sin\phi-\omega\cos\phi)}{s_+-s_-},
+    \qquad
+    C_-=\frac{Y_0M(\omega\cos\phi-s_+\sin\phi)}{s_+-s_-}.
+\]
+The exponential terms vanish for \(c>0\), leaving the steady response.
+
+Introduce the frequency ratio \(r=\omega/\omega_n\) and damping ratio
+\(\zeta=c/(2m\omega_n)\). The displacement transmissibility is
+\begin{equation}
+    T(r)=\frac{|X|}{|Y|}
+    =\sqrt{\frac{1+(2\zeta r)^2}
+    {(1-r^2)^2+(2\zeta r)^2}}.
+    \label{eq:transmissibility}
+\end{equation}
+Differentiating \(T^2\) with respect to \(r^2\) gives the peak at
+\begin{equation}
+    r_{\mathrm{peak}}
+    =\sqrt{\frac{2}{1+\sqrt{1+8\zeta^2}}}.
+    \label{eq:resonant-ratio}
+\end{equation}
+Thus the body follows slow road motion because \(T(0)=1\), is amplified near
+resonance, and is isolated at high frequency because \(T(r)\to0\). Increasing
+damping reduces the resonant peak but increases high-frequency transmission,
+which exposes an engineering trade-off rather than a universally optimal value.
+The phase is also physically relevant: it is close to zero at low frequency
+and approaches \(-\pi/2\) at high frequency. Isolation therefore changes not
+only the amplitude of the body motion but also its timing relative to the road.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=4.2cm]{figures/step_response_comparison.pdf}
+        \caption{Normalised response to a road step.}
+        \label{fig:step-response-comparison}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \centering
+        \includegraphics[height=4.2cm]{figures/sinusoidal_transmissibility.pdf}
+        \caption{Sinusoidal displacement transmissibility.}
+        \label{fig:sinusoidal-transmissibility}
+    \end{subfigure}
+    \caption{Forced-response behaviour for representative damping ratios.}
+    \label{fig:forced-response-comparison}
+\end{figure}
+
+\section{Conclusion}
+
+Starting from Newton's second law, this study derived a single-degree-of-freedom
+base-excitation model and used the Laplace transform to obtain its free, step
+and sinusoidal responses. For \(m,c,k>0\), the system poles lie in the left
+half-plane, so all transient components decay. The step response approaches the
+road height \(Y_0\), while the sinusoidal response is governed by the
+displacement transmissibility \(T(r)\). Resonant amplification occurs near
+\(r=1\), whereas effective vibration isolation begins when \(r>\sqrt{2}\).
+Increasing damping lowers the resonant peak but increases high-frequency
+transmission, demonstrating a design trade-off rather than a universally
+optimal damping value. The model is limited by its linear elements, idealised
+step input, and neglected tyre and wheel dynamics. A two-degree-of-freedom
+quarter-car model could capture wheel-hop resonance and provide a more realistic
+extension.
 
 \end{document}
