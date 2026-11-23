@@ -3,8 +3,12 @@
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{amsmath}
 \usepackage[hidelinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tabularx}
+\usepackage{float}
 
-\title{Error-State Analysis of an INS/GNSS Navigation System}
+\title{Methematical Modelling and Dynamic Response Analysis of a Suspension System}
 \author{}
 \date{}
 
@@ -13,146 +17,219 @@
 \maketitle
 \section{Background}
 
-This is background.
-...
+Suspension system is a mechanical system aiming to reduce the load's movement range in different road situations. Often used in the cars or bicycles.
+This article firstly models the basic movement of a simplified suspension system containing a ideal spring and ideal damping.
+Then analyze the vibration response in different situations.
 
-\section{Model Description}
+\section{Basic Car Frame Model}
 
-We use the error state model to demonstrate the navigation sysytem. The navigation system can seemed as
-an ideal IMU with an ideal GNSS device which can obtain the raw accel and gyro information and the raw GPS messages. 
+We select one single wheel to analyze, the suspension system can be simplified as a const mass connected with wheel
+together with a spring and a damper.
 
-\section{Vertical-Channel Analysis}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/vehical.pdf}
+    \caption{Vehicle schematic.}
+    \label{fig:vehicle}
+\end{figure}
 
-In vertical, we have two different varibles: height \(\delta{h}\) and downward velocity \(\delta{v_d}\) .Assume that
-the system has no outside impact, the differencial equation of two virables can be represented by:
+We have:
 
-\[\dot{\delta{h}} = -\delta{v_d}\]
-\[\dot{\delta{v_d}} = (\frac{v_n^2}{(R_e + h)^2} - \frac{2GM}{(R_e + h)^3}) \cdot h\]
+\vspace{\baselineskip} %空行
+
+\begingroup
+\renewcommand{\arraystretch}{1.2}
+
+\noindent
+\begin{tabularx}{\linewidth}{@{}l X l@{}}
+    \(m\) & Equivalent vehicle mass
+          & \(\mathrm{kg}\) \\
+
+    \(k\) & Spring stiffness
+          & \(\mathrm{N/m}\) \\
+
+    \(c\) & Damping coefficient
+          & \(\mathrm{N \cdot s/m}\) \\
+
+    \(x(t)\) & Vertical displacement of the vehicle frame
+               from its static equilibrium position
+             & \(\mathrm{m}\) \\
+
+    \(y(t)\) & Vertical displacement of the road input
+               from its reference position
+             & \(\mathrm{m}\) \\
+
+    \(F_k\) & Spring force
+            & \(\mathrm{N}\) \\
+
+    \(F_c\) & Damping force
+            & \(\mathrm{N}\) \\
+\end{tabularx}
+
+\endgroup
+
+\vspace{\baselineskip} %空行
+\vspace{\baselineskip} %空行
+\vspace{\baselineskip} %空行
+\vspace{\baselineskip} %空行
+
+The force from spring to the load is:
+
+\[F_k = -k(x-y)\]
+
+\vspace{\baselineskip} %空行
+
+Damping force is according to relevant velocity:
+
+\[F_c = -c(x-y)' = -c(\dot{x}-\dot{y})\]
+
+\vspace{\baselineskip} %空行
+
+According to Newton's second law:
+
+\[m\ddot{x}=F_k+F_c\]
+
+\[m\ddot{x}=-k(x+y)-c(\dot{x}-\dot{y})\]
+
+ 
+\begin{equation}
+    m\ddot{x}+c\dot{x}+kx = c\dot{y}+ky.
+    \label{eq:motion}
+\end{equation}
+
+\vspace{\baselineskip} %空行
+
+The equation (1) we call that basic motion differential equation.
+
+\vspace{\baselineskip} %空行
+
+Taking the Laplace transform of the both side of the equation (1):
+
+\[m[s^2X(s)-sx(0)-x'(0)] + c[sX(s) - x(0)] + kX(s) = c[sY(s) - y(0)] + kY(s)\]
+
+\[(ms^2 + cs + k)X(s) - msx(0) - mx'(0) - cx(0) = (cs + k)Y(s) - cy(0)\]
+
+\vspace{\baselineskip} %空行
+
+Let \(x(0)\), \(x'(0)\), \(y(0)\) = 0, we get the system's transform function:
+
+\[H(s) = \frac{X(s)}{Y(s)} = \frac{cs + k}{ms^2 + cs + k}\]
+
+
+\vspace{\baselineskip} %空行
+
+
+
+
+\section{Motion Analysis}
+
+\vspace{\baselineskip} %空行
+
+\subsection{Free Response Analysis: Car's free rebound after compression}
+
+\vspace{\baselineskip} %空行
+
+
+let \(x(0)\) = \(x_0\) < 0, \(x'(0) = 0\), \(y(t) = 0\)
+
+\[(ms^2 + cs + k)X(s) - (ms + c)x_0 = (cs + k)Y(s)\]
+
+\[(ms^2 + cs + k)\frac{X(s)}{Y(s)} - \frac{(ms + c)x_0}{Y(s)} = (cs + k)Y(s)\]
+
+\[\frac{X(s)}{Y(s)} = \frac{cs + k + \frac{(cs + c)x_0}{Y(s)}}{ms^2 + cs + k}\]
+
+\begin{equation}
+X(s) = \frac{(cs + k)Y(s) + (ms + c)x_0}{ms^2 + cs + k}
+    \label{eq:motion}
+\end{equation}
+
+Because \(y(t) = 0\), so \(Y(s) = 0\)
+
+\vspace{\baselineskip} %空行
+
+let \(ms^2 + cs + k = 0\) to find poles of the system.
+
+\[s = \frac{-c \pm \sqrt{c^2-4mk}}{2m}\]
+
+When \(c^2 - 4mk > 0\), s have two real roots
+
+\vspace{0.2cm} 
+
+When \(c^2 - 4mk = 0\), s have one real root.
+
+\vspace{0.2cm} 
+
+When \(c^2 - 4mk < 0\), s have two complex roots.
+
+\vspace{\baselineskip} %空行
+\vspace{\baselineskip} %空行
+
+When \(c^2 \neq 4mk\):
+
+\[X(s) = \frac{A}{s - \frac{-c - \sqrt{c^2 - 4mk}}{2m}} + \frac{B}{s - \frac{-c + \sqrt{c^2 - 4mk}}{2m}}\]
+
+\vspace{0.2cm} 
+
+\[X(s) = \frac{m[(A+B)s - \frac{A}{2m}(-c + \sqrt{c^2 - 4mk}) - \frac{B}{2m}(-c - \sqrt{c^2- 4mk})]}{(s - \frac{-c - \sqrt{c^2 - 4mk}}{2m})(s - \frac{-c + \sqrt{c^2 - 4mk}}{2m})}\]
+
+\vspace{\baselineskip} %空行
+
+So:
+
+\[
+\begin{aligned}
+&\begin{cases}
+    m(A+B)=mx_0, \\[8pt]
+    \frac{m}{2m}
+    \left[
+        A(-c+\sqrt{c^2-4mk})
+        +B(-c-\sqrt{c^2-4mk})
+    \right]=-cx_0.
+\end{cases}
+\\[20pt]
+&\begin{cases}
+    A=\frac{x_0(\sqrt{c^2-4mk}-c)}
+           {2\sqrt{c^2-4mk}}, \\[12pt]
+    B=\frac{x_0(\sqrt{c^2-4mk}+c)}
+           {2\sqrt{c^2-4mk}}.
+\end{cases}
+\end{aligned}
+\]
+
+\vspace{\baselineskip} %空行
+
+Taking the inverse Laplace transform of both sides of the equation (2):
+
+\[x(t) = Ae^{s_-t} + Be^{s_+t}\]
+
+\vspace{\baselineskip} %空行
 
 where:
 
-\(v_n\): current northward velocity
+\[s_{\pm} = \frac{-c \pm\sqrt{c^2-4mk}}{2m}\]
 
-\(R_e\): radius of the Earth
+\vspace{\baselineskip} %空行
 
-\(h\): current height
+When \(c^2-4mk>0\), the poles lie on the negative real axis,
+as shown in Figure~\ref{fig:overdamped}.
 
-\(G\): gravitational constant
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]
+        {figures/overdamped_poles_symbolic.pdf}
+    \caption{Pole locations in the overdamped case.}
+    \label{fig:overdamped}
+\end{figure}
 
-\(M\): mass of earth
+That means \(x(t)\) is exponential convergence.
 
-
-written in matrix form:
-
-\[
-    \begin{bmatrix}
-        \dot{\delta{h}} \\
-        \dot{\delta{v_d}}
-    \end{bmatrix} = 
-    \begin{bmatrix}
-        0 & -1\\
-        (\frac{v_n^2}{(R_e + h)^2} - \frac{2GM}{(R_e + h)^3}) & 0
-    \end{bmatrix}
-    \cdot
-    \begin{bmatrix}
-        {\delta{h}} \\
-        {\delta{v_d}}
-    \end{bmatrix}
-\]
-
-In representive condition,\(\frac{2GM}{r^3} > \frac{v_n^2}{r^2}\), where \(v_n < \sqrt{\frac{2GM}{r}} \approx 11.2 km/s\)
-
-while:
-
-\[v_n < \sqrt{\frac{2GM}{r}}\]
-
-define 
-\[k^2 = \frac{2GM}{(R_e + h)^3} - \frac{v_n^2}{(R_e + h)^2}\]
-
-\[A = \begin{bmatrix}
-        0 & -1\\
-        -k^2 & 0
-    \end{bmatrix}
-\]
-
-define \(\lambda\) as A's eigenvalue and \(\mu\) as A's eigenvector.
-
-therefore:  
-
-\[det[\lambda I - A] = \lambda^2 - k^2 = 0\]
-
-so:
-
-\[\lambda = \pm k\]
-
-Here we get the eigen value of A, eigenvalue is improtant because differencial equations
-with the form of \(\dot{x} = Fx\), the result of \(x\) is serveval \(C e^{\lambda t}\mu\)
-added together, where \(\lambda\) are eigenvalues, \(\mu\) are eigen vectors.
-
-
-To \(\lambda_+ = k\):
-
-\[\begin{bmatrix}
-        0 & -1\\
-        -k^2 & 0
-    \end{bmatrix}
-    \begin{bmatrix}
-        \mu_1 \\
-        \mu_2 
-    \end{bmatrix}
-    =
-    k
-    \begin{bmatrix}
-        \mu_1 \\
-        \mu_2 
-    \end{bmatrix}
-\]
-
-\[\mu_+ = 
-    \begin{bmatrix}
-    1\\
-    -k 
-    \end{bmatrix}
-\]
-
-Same way, to \(\lambda_- = -k\), we have \(\mu_-\) to let:
-
-\[A \mu_- = \lambda_- \mu_-\]
-
-so:
-
-\[\mu_- = 
-    \begin{bmatrix}
-    1 \\
-    k
-    \end{bmatrix}
-\]
-
-\(\mu_-\) and \(\mu_+\) are not in the same line, or \(det\begin{bmatrix}
-    \mu_- &
-    \mu_+ 
-    \end{bmatrix} \neq 0\). So they can constructed as a base
-vector of two-dimention vector space.
-
-so the gather of solution can be represented by:
-
-\[x(t) = C_1 e^{\lambda_+t}\mu_+ + C_2 e^{\lambda_-t}\mu_-\]
-
-as \(\lambda_+ = +k > 0\)
-
-\[C_1 e^{\lambda_+t}\mu_+\]
-
-is divergent. So the vertical error dynamics are unstable, means it need outside feedback correction.
-
-
-
-
-
-
-
-
-
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]
+        {figures\overdamped_free_response.pdf}
+    \caption{Overdamped free response.}
+    \label{fig:overdamped}
+\end{figure}
 
 
 \end{document}

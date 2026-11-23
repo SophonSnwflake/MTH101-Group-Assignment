@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.10.14)  28 OCT 2026 16:34
+This is XeTeX, Version 3.141592653-2.6-0.999998 (TeX Live 2026) (preloaded format=xelatex 2026.10.14)  18 NOV 2026 16:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -206,34 +206,99 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip54
+) (d:/texlive/2026/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+ (d:/texlive/2026/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+ (d:/texlive/2026/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (d:/texlive/2026/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 106.
+ (d:/texlive/2026/texmf-dist/tex/latex/graphics-def/xetex.def
+File: xetex.def 2025/11/01 v5.0p Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen170
+\Gin@req@width=\dimen171
+) (d:/texlive/2026/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+ (d:/texlive/2026/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (d:/texlive/2026/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen172
+\captionmargin=\dimen173
+\caption@leftmargin=\dimen174
+\caption@rightmargin=\dimen175
+\caption@width=\dimen176
+\caption@indent=\dimen177
+\caption@parindent=\dimen178
+\caption@hangindent=\dimen179
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count308
+\c@continuedfloat=\count309
+Package caption Info: hyperref package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count310
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count311
+) (d:/texlive/2026/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+ (d:/texlive/2026/texmf-dist/tex/latex/tools/array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen180
+\ar@mcellbox=\box56
+\extrarowheight=\dimen181
+\NC@list=\toks24
+\extratabsurround=\skip55
+\backup@length=\skip56
+\ar@cellbox=\box57
+)
+\TX@col@width=\dimen182
+\TX@old@table=\dimen183
+\TX@old@col=\dimen184
+\TX@target=\dimen185
+\TX@delta=\dimen186
+\TX@cols=\count312
+\TX@ftn=\toks25
+) (d:/texlive/2026/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count313
+\float@exts=\toks26
+\float@box=\box58
+\@float@everytoks=\toks27
+\@floatcapt=\box59
 ) (d:/texlive/2026/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
 File: l3backend-xetex.def 2025-10-09 L3 backend support: XeTeX
-\g__graphics_track_int=\count308
-\g__pdfannot_backend_int=\count309
-\g__pdfannot_backend_link_int=\count310
+\g__graphics_track_int=\count314
+\g__pdfannot_backend_int=\count315
+\g__pdfannot_backend_link_int=\count316
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 11.
-LaTeX Font Info:    ... okay on input line 11.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -269,28 +334,133 @@ LaTeX Font Info:    ... okay on input line 11.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 11.
-(./main.out) (./main.out)
+Package hyperref Info: Link coloring OFF on input line 15.
 \@outlinefile=\write3
 \openout3 = `main.out'.
 
- [1
 
-] [2] (./main.aux)
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
+Package caption Info: End \AtBeginDocument code.
+File: figures/vehical.pdf Graphic file (type pdf)
+<use figures/vehical.pdf>
+[1
+
+] [2]
+
+LaTeX Warning: Reference `fig:overdamped' on page 3 undefined on input line 214.
+
+File: figures/overdamped_poles_symbolic.pdf Graphic file (type pdf)
+<use figures/overdamped_poles_symbolic.pdf>
+[3]
+d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex:229: Undefined control sequence.
+<argument> figuresoverdamped 
+                             _free_response.pdf
+l.229 ...   {figures\overdamped_free_response.pdf}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex:229: Undefined control sequence.
+<argument> figuresoverdamped 
+                             _free_response.pdf
+l.229 ...   {figures\overdamped_free_response.pdf}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex:229: Undefined control sequence.
+<argument> figuresoverdamped 
+                             _free_response.pdf
+l.229 ...   {figures\overdamped_free_response.pdf}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex:229: Undefined control sequence.
+<write> ...aTeX Warning: File `figures\overdamped 
+                                                  _free_response.pdf' not fo...
+l.229 ...   {figures\overdamped_free_response.pdf}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: File `figures_free_response.pdf' not found on input line 229.
+
+d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex:229: Unable to load picture or PDF file 'figures_free_response.pdf'.
+<to be read again> 
+                   }
+l.229 ...   {figures\overdamped_free_response.pdf}
+                                                  
+The requested image couldn't be read because
+it was not a recognized image format.
+
+
+d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex:229: Package graphics Error: Division by 0.
+
+See the graphics package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.229 ...   {figures\overdamped_free_response.pdf}
+                                                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+File: figures_free_response.pdf Graphic file (type pdf)
+<use figures_free_response.pdf>
+d:/Files/大学/大二/上学期/MTH101/GroupAssessment_MathModeling/main.tex:229: Unable to load picture or PDF file 'figures_free_response.pdf'.
+<to be read again> 
+                   \GPT@clipend 
+l.229 ...   {figures\overdamped_free_response.pdf}
+                                                  
+The requested image couldn't be read because
+it was not a recognized image format.
+
+[4] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 5A7EB75AFA084C4B6BB3DA9C5E889EA5;395.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  2B2497997074FAFDE8175FCBCD6EA840;749.
  ) 
 Here is how much of TeX's memory you used:
- 8781 strings out of 468168
- 134191 string characters out of 5436523
- 563306 words of memory out of 5000000
- 37442 multiletter control sequences out of 15000+600000
- 632671 words of font info for 62 fonts, out of 8000000 for 9000
+ 10876 strings out of 468168
+ 173070 string characters out of 5436523
+ 592865 words of memory out of 5000000
+ 39499 multiletter control sequences out of 15000+600000
+ 632687 words of font info for 64 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 72i,9n,79p,287b,345s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 72i,14n,79p,356b,360s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.xdv (2 pages, 17852 bytes).
+Output written on main.xdv (4 pages, 24980 bytes).
