@@ -7,7 +7,7 @@
 \usepackage{subcaption}
 \usepackage{tabularx}
 
-\title{Mathematical Modelling and Dynamic Response Analysis of a Simplified Vehicle Suspension}
+\title{Mathematical Modelling, Modal Analysis and Input Shaping of a Double-Pendulum Overhead Crane}
 \author{}
 \date{}
 
@@ -17,337 +17,381 @@
 
 \section{Background}
 
-A vehicle suspension connects the vehicle body to the road through elastic and
-dissipative elements. Its purpose is to limit the transmission of road-induced
-vibration while maintaining acceptable suspension motion. A real suspension
-contains tyres, linkages and several distributed masses, but a simpler model is
-more suitable for deriving the main dynamic relationships analytically. This
-report therefore considers the vertical motion associated with one wheel and
-represents the supported part of the vehicle body by a single equivalent mass.
-The investigation first derives the governing ordinary differential equation
-and its transfer function using Newton's second law and the Laplace transform.
-The free response is then used to show how the system poles and damping determine
-whether the motion decays with or without oscillation. The same model will later
-be used to investigate how a prescribed road displacement is transmitted to the
-vehicle body.
+Overhead cranes are widely used to transport heavy payloads in manufacturing,
+construction and shipping. Rapid trolley motion improves handling efficiency,
+but it also excites the suspended assembly, producing residual sway that delays
+accurate positioning and may compromise operational safety
+\cite{AbdelRahman2003}. A single-pendulum model is adequate when the hook and
+payload move approximately as one body. However, when the payload is connected
+to the hook by secondary rigging, the hook and payload can oscillate relative to
+each other. The resulting double-pendulum system possesses two coupled natural
+modes, including a higher-frequency mode that cannot be represented by a
+single-pendulum approximation \cite{Singhose2008}.
 
-% TODO: Add academic sources on suspension modelling and parameter selection.
+Input shaping is a feedforward technique that modifies a prescribed motion
+command using appropriately timed impulses, thereby reducing residual vibration
+without requiring direct measurement of the payload motion
+\cite{SingerSeering1990}. This study derives a planar double-pendulum crane model
+under prescribed trolley acceleration using the Euler--Lagrange equations. The
+model is linearised about the downward equilibrium and analysed using Laplace
+transforms and modal methods. The resulting natural frequencies are then used
+to construct a two-mode zero-vibration input shaper. Its effectiveness is
+evaluated by comparing the unshaped and shaped angular responses, residual
+vibration energy and additional command duration.
 
 \section{Description of the Model}
 
-The suspension is represented by a single-degree-of-freedom base-excitation
-model. The equivalent sprung mass is connected to a moving lower support by a
-linear spring and a viscous damper in parallel, as shown in
-Figure~\ref{fig:vehicle}. In this approximation, the lower support follows the
-road profile directly.
+\subsection{Assumptions and Coordinates}
+
+The crane, shown in Figure~\ref{fig:crane-model}, is idealised as a planar
+serial double pendulum driven by a prescribed trolley displacement \(x(t)\).
+An inertial \(X\)--\(Y\) frame is used, with the
+\(X\)-axis horizontal and positive to the right, and the \(Y\)-axis vertical and
+positive upwards. The trolley suspension point is therefore located at
+\((x(t),0)\). A hook of mass \(m_1\) is suspended from the trolley by a cable of
+length \(l_1\), and a payload of mass \(m_2\) is connected to the hook by a
+second cable of length \(l_2\). The angles \(\theta_1(t)\) and \(\theta_2(t)\)
+are measured from the vertically downward direction and are both absolute
+angles, rather than angles measured relative to one another. The angular
+generalised-coordinate vector is
+\[
+    \boldsymbol{\theta}(t)
+    =\begin{bmatrix}\theta_1(t)&\theta_2(t)\end{bmatrix}^{\mathsf T}.
+\]
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.68\textwidth]{figures/vehical.pdf}
-    \caption{Vehicle schematic and equivalent single-degree-of-freedom suspension model.}
-    \label{fig:vehicle}
+    \includegraphics[width=0.72\textwidth]
+        {figures/xiaocheche.drawio.pdf}
+    \caption{Planar double-pendulum crane model and coordinate definitions.}
+    \label{fig:crane-model}
 \end{figure}
 
-\begin{samepage}
-The model is based on the following assumptions:
-\begin{itemize}
-    \item only vertical motion is considered;
-    \item the spring and damper are linear;
-    \item the wheel mass and tyre deformation are neglected;
-    \item the lower support follows the road displacement; and
-    \item displacement is measured from static equilibrium, so gravity is
-          balanced by the spring preload.
-\end{itemize}
-\end{samepage}
-
-Both displacements are positive upwards. The variables and parameters are
-defined below.
+The model assumes that both cables are massless, inextensible and of fixed
+length; the hook and payload are point masses; motion remains in one vertical
+plane; and aerodynamic drag, cable damping and drive flexibility are neglected.
+The trolley drive is assumed to track \(x(t)\) exactly, so the trolley mass is
+not included as a dynamic coordinate and \(\ddot{x}(t)\) acts as the external
+excitation. The nonlinear equations are derived before a small-angle
+linearisation is introduced for the modal and Laplace analyses.
 
 \begingroup
-\renewcommand{\arraystretch}{1.2}
+\renewcommand{\arraystretch}{1.15}
 \noindent
 \begin{tabularx}{\linewidth}{@{}l X l@{}}
     \textbf{Symbol} & \textbf{Meaning} & \textbf{Unit} \\
-    \(m\) & Equivalent sprung mass supported by one suspension & \(\mathrm{kg}\) \\
-    \(k\) & Spring stiffness & \(\mathrm{N/m}\) \\
-    \(c\) & Viscous damping coefficient & \(\mathrm{N\,s/m}\) \\
-    \(x(t)\) & Vehicle-body displacement from static equilibrium & \(\mathrm{m}\) \\
-    \(y(t)\) & Road or lower-support displacement & \(\mathrm{m}\) \\
-    \(F_k\) & Incremental spring force on the mass & \(\mathrm{N}\) \\
-    \(F_c\) & Incremental damping force on the mass & \(\mathrm{N}\) \\
+    \(x(t)\) & Prescribed horizontal trolley displacement & \(\mathrm{m}\) \\
+    \(m_1\) & Hook mass & \(\mathrm{kg}\) \\
+    \(m_2\) & Payload mass & \(\mathrm{kg}\) \\
+    \(l_1\) & Upper cable length & \(\mathrm{m}\) \\
+    \(l_2\) & Lower cable length & \(\mathrm{m}\) \\
+    \(\theta_1(t)\) & Absolute angle of the upper cable & \(\mathrm{rad}\) \\
+    \(\theta_2(t)\) & Absolute angle of the lower cable & \(\mathrm{rad}\) \\
+    \(g\) & Gravitational acceleration & \(\mathrm{m/s^2}\) \\
 \end{tabularx}
 \endgroup
 
-The spring force depends on relative displacement, whereas the damping force
-depends on relative velocity:
-\[
-    F_k=-k(x-y),
-    \qquad
-    F_c=-c(\dot{x}-\dot{y}).
-\]
-Newton's second law therefore gives
-\[
-    m\ddot{x}=F_k+F_c
-    =-k(x-y)-c(\dot{x}-\dot{y}),
-\]
-or, equivalently,
-\begin{equation}
-    m\ddot{x}+c\dot{x}+kx=c\dot{y}+ky.
-    \label{eq:governing}
-\end{equation}
+\subsection{Kinematics and Energy Formulation}
 
-Applying the Laplace transform to Equation~\eqref{eq:governing} gives
-\begin{align}
-    &(ms^2+cs+k)X(s)-msx(0)-m\dot{x}(0)-cx(0) \notag\\
-    &\hspace{4cm}=(cs+k)Y(s)-cy(0).
-    \label{eq:laplace-general}
-\end{align}
-For zero initial conditions immediately before the input is applied, the road
-displacement-to-body displacement transfer function is
+Using the absolute-angle convention defined above, the Cartesian position
+vectors of the hook and payload are
 \begin{equation}
-    G(s)=\frac{X(s)}{Y(s)}
-    =\frac{cs+k}{ms^2+cs+k}.
-    \label{eq:transfer-function}
+    \mathbf r_1=
+    \begin{bmatrix}
+        x+l_1\sin\theta_1\\
+        -l_1\cos\theta_1
+    \end{bmatrix},
+    \qquad
+    \mathbf r_2=
+    \begin{bmatrix}
+        x+l_1\sin\theta_1+l_2\sin\theta_2\\
+        -l_1\cos\theta_1-l_2\cos\theta_2
+    \end{bmatrix}.
+    \label{eq:mass-positions}
 \end{equation}
-This is a base-displacement transfer function. It is different from the
-force-to-displacement transfer function of a mass subjected to an external
-force, whose numerator would be unity.
+Differentiating Equation~\eqref{eq:mass-positions} gives the squared speeds
+\begin{align}
+    v_1^2={}&\dot{x}^2
+        +2l_1\dot{x}\dot{\theta}_1\cos\theta_1
+        +l_1^2\dot{\theta}_1^2,
+        \label{eq:hook-speed}\\
+    v_2^2={}&\dot{x}^2
+        +l_1^2\dot{\theta}_1^2
+        +l_2^2\dot{\theta}_2^2
+        +2l_1\dot{x}\dot{\theta}_1\cos\theta_1
+        +2l_2\dot{x}\dot{\theta}_2\cos\theta_2 \notag\\
+        &+2l_1l_2\dot{\theta}_1\dot{\theta}_2
+        \cos(\theta_1-\theta_2).
+        \label{eq:payload-speed}
+\end{align}
+Hence, the total kinetic energy
+\(T=\tfrac12m_1v_1^2+\tfrac12m_2v_2^2\) becomes
+\begin{align}
+    T={}&\frac12(m_1+m_2)\dot{x}^2
+        +(m_1+m_2)l_1\dot{x}\dot{\theta}_1\cos\theta_1
+        +m_2l_2\dot{x}\dot{\theta}_2\cos\theta_2 \notag\\
+        &+\frac12(m_1+m_2)l_1^2\dot{\theta}_1^2
+        +\frac12m_2l_2^2\dot{\theta}_2^2
+        +m_2l_1l_2\dot{\theta}_1\dot{\theta}_2
+        \cos(\theta_1-\theta_2).
+    \label{eq:kinetic-energy}
+\end{align}
+The final term in Equation~\eqref{eq:kinetic-energy} couples the two angular
+coordinates, whereas the terms containing \(\dot{x}\dot{\theta}_i\) describe
+energy transfer from the prescribed trolley motion to each pendulum mode.
+
+Taking the vertically downward configuration as the zero-potential reference,
+the total gravitational potential energy is
+\begin{equation}
+    V=(m_1+m_2)gl_1(1-\cos\theta_1)
+      +m_2gl_2(1-\cos\theta_2).
+    \label{eq:potential-energy}
+\end{equation}
+The Lagrangian is \(L=T-V\). Since \(x(t)\) is prescribed, the first term in
+Equation~\eqref{eq:kinetic-energy},
+\(\tfrac12(m_1+m_2)\dot{x}^2\), is a known function of time only. It may
+therefore be omitted when applying the Euler--Lagrange equations to
+\(\theta_1\) and \(\theta_2\); all cross terms involving the angular
+coordinates must be retained.
+
+\subsection{Equations of Motion and Linearisation}
+
+For compactness, define \(m_T=m_1+m_2\) and
+\(\Delta=\theta_1-\theta_2\). Applying
+\begin{equation}
+    \frac{\mathrm d}{\mathrm dt}
+    \left(\frac{\partial L}{\partial\dot{\theta}_i}\right)
+    -\frac{\partial L}{\partial\theta_i}=0,
+    \qquad i=1,2,
+    \label{eq:euler-lagrange}
+\end{equation}
+requires the following derivatives of the Lagrangian:
+\begin{align}
+    \frac{\partial L}{\partial\dot{\theta}_1}
+    ={}&m_Tl_1^2\dot{\theta}_1
+       +m_Tl_1\dot{x}\cos\theta_1
+       +m_2l_1l_2\dot{\theta}_2\cos\Delta,
+       \label{eq:momentum-theta1}\\
+    \frac{\partial L}{\partial\theta_1}
+    ={}&-m_Tl_1\dot{x}\dot{\theta}_1\sin\theta_1
+       -m_2l_1l_2\dot{\theta}_1\dot{\theta}_2\sin\Delta
+       -m_Tgl_1\sin\theta_1,
+       \label{eq:coordinate-theta1}\\
+    \frac{\partial L}{\partial\dot{\theta}_2}
+    ={}&m_2l_2^2\dot{\theta}_2
+       +m_2l_2\dot{x}\cos\theta_2
+       +m_2l_1l_2\dot{\theta}_1\cos\Delta,
+       \label{eq:momentum-theta2}\\
+    \frac{\partial L}{\partial\theta_2}
+    ={}&-m_2l_2\dot{x}\dot{\theta}_2\sin\theta_2
+       +m_2l_1l_2\dot{\theta}_1\dot{\theta}_2\sin\Delta
+       -m_2gl_2\sin\theta_2.
+       \label{eq:coordinate-theta2}
+\end{align}
+After differentiating Equations~\eqref{eq:momentum-theta1} and
+\eqref{eq:momentum-theta2}, the terms proportional to
+\(\dot{x}\dot{\theta}_i\sin\theta_i\) cancel with the corresponding coordinate
+derivatives. Substitution into Equation~\eqref{eq:euler-lagrange} therefore
+gives the coupled nonlinear equations
+\begin{align}
+    m_Tl_1^2\ddot{\theta}_1
+    &+m_2l_1l_2\cos\Delta\,\ddot{\theta}_2
+    +m_2l_1l_2\sin\Delta\,\dot{\theta}_2^2
+    +m_Tgl_1\sin\theta_1
+    =-m_Tl_1\ddot{x}\cos\theta_1,
+    \label{eq:nonlinear-theta1}\\
+    m_2l_1l_2\cos\Delta\,\ddot{\theta}_1
+    &+m_2l_2^2\ddot{\theta}_2
+    -m_2l_1l_2\sin\Delta\,\dot{\theta}_1^2
+    +m_2gl_2\sin\theta_2
+    =-m_2l_2\ddot{x}\cos\theta_2.
+    \label{eq:nonlinear-theta2}
+\end{align}
+Thus the prescribed trolley displacement enters the angular dynamics through
+its acceleration rather than its absolute position or velocity.
+
+For small oscillations about the downward equilibrium,
+\[
+    \sin\theta_i\approx\theta_i,\qquad
+    \cos\theta_i\approx1,\qquad
+    \cos\Delta\approx1,\qquad
+    \sin\Delta\approx0.
+\]
+Neglecting products of small quantities reduces
+Equations~\eqref{eq:nonlinear-theta1}--\eqref{eq:nonlinear-theta2} to
+\begin{align}
+    m_Tl_1^2\ddot{\theta}_1
+    +m_2l_1l_2\ddot{\theta}_2
+    +m_Tgl_1\theta_1
+    &=-m_Tl_1\ddot{x},
+    \label{eq:linear-theta1}\\
+    m_2l_1l_2\ddot{\theta}_1
+    +m_2l_2^2\ddot{\theta}_2
+    +m_2gl_2\theta_2
+    &=-m_2l_2\ddot{x}.
+    \label{eq:linear-theta2}
+\end{align}
+Writing \(u(t)=\ddot{x}(t)\), these equations take the matrix form
+\begin{equation}
+    \mathbf M\ddot{\boldsymbol{\theta}}
+    +\mathbf K\boldsymbol{\theta}
+    =-\mathbf b\,u(t),
+    \label{eq:linear-matrix-model}
+\end{equation}
+where
+\begin{equation}
+    \mathbf M=
+    \begin{bmatrix}
+        m_Tl_1^2 & m_2l_1l_2\\
+        m_2l_1l_2 & m_2l_2^2
+    \end{bmatrix},
+    \qquad
+    \mathbf K=
+    \begin{bmatrix}
+        m_Tgl_1 & 0\\
+        0 & m_2gl_2
+    \end{bmatrix},
+    \qquad
+    \mathbf b=
+    \begin{bmatrix}
+        m_Tl_1\\
+        m_2l_2
+    \end{bmatrix}.
+    \label{eq:system-matrices}
+\end{equation}
+The mass matrix is symmetric and
+\(\det\mathbf M=m_1m_2l_1^2l_2^2>0\), so both angular coordinates represent
+independent dynamic degrees of freedom. Together with the positive stiffness
+matrix, this produces the two coupled natural modes used in the subsequent
+Laplace and input-shaping analyses.
 
 \section{Explanation of the Solutions}
 
-\subsection{Free Response After an Initial Compression}
+\subsection{Laplace-Domain Model and Natural Frequencies}
 
-To identify the system's natural modes, the road is fixed at \(y(t)=0\), and the
-mass is released from rest with
+Assume that the crane starts from rest, and define
 \[
-    x(0)=x_0,
-    \qquad
-    \dot{x}(0)=0.
+    U(s)=\mathcal L\{u(t)\},\qquad
+    \boldsymbol{\Theta}(s)
+    =\mathcal L\{\boldsymbol{\theta}(t)\}
+    =
+    \begin{bmatrix}
+        \Theta_1(s)\\
+        \Theta_2(s)
+    \end{bmatrix}.
 \]
-With the upward-positive convention, \(x_0<0\) represents an initial downward
-compression. Substituting these conditions directly into
-Equation~\eqref{eq:laplace-general} gives
+Taking the Laplace transform of Equation~\eqref{eq:linear-matrix-model} gives
 \begin{equation}
-    X_f(s)=\frac{(ms+c)x_0}{ms^2+cs+k}.
-    \label{eq:free-transform}
+    (s^2\mathbf M+\mathbf K)\boldsymbol{\Theta}(s)
+    =-\mathbf b\,U(s).
+    \label{eq:laplace-matrix-model}
 \end{equation}
-No division by \(Y(s)\) is required because the free-response input is zero.
-
-Define
-\[
-    \Delta=\sqrt{c^2-4mk},
-    \qquad
-    s_{\pm}=\frac{-c\pm\Delta}{2m}.
-\]
-When the two poles are distinct, Equation~\eqref{eq:free-transform} can be
-expanded as
-\[
-    X_f(s)=\frac{A}{s-s_-}+\frac{B}{s-s_+}.
-\]
-The initial displacement and velocity require
-\[
-    A+B=x_0,
-    \qquad
-    s_-A+s_+B=0,
-\]
-which give
-\[
-    A=\frac{x_0}{2}\left(1-\frac{c}{\Delta}\right),
-    \qquad
-    B=\frac{x_0}{2}\left(1+\frac{c}{\Delta}\right).
-\]
-Hence,
+Using the matrices in Equation~\eqref{eq:system-matrices}, this becomes
 \begin{equation}
-    x_f(t)=Ae^{s_-t}+Be^{s_+t}.
-    \label{eq:free-distinct}
+    \begin{bmatrix}
+        m_Tl_1(l_1s^2+g) & m_2l_1l_2s^2\\
+        m_2l_1l_2s^2 & m_2l_2(l_2s^2+g)
+    \end{bmatrix}
+    \begin{bmatrix}
+        \Theta_1\\
+        \Theta_2
+    \end{bmatrix}
+    =
+    -\begin{bmatrix}
+        m_Tl_1\\
+        m_2l_2
+    \end{bmatrix}U(s).
+    \label{eq:expanded-laplace-system}
 \end{equation}
-
-If \(c^2>4mk\), both poles are real and negative, so the system is overdamped
-and returns to equilibrium without oscillating. The pole locations and the
-corresponding qualitative response are shown in
-Figure~\ref{fig:overdamped-summary}.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[t]{0.46\textwidth}
-        \centering
-        \includegraphics[height=3.3cm]{figures/overdamped_poles_symbolic.pdf}
-        \caption{Two negative real poles.}
-        \label{fig:overdamped-poles}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.46\textwidth}
-        \centering
-        \includegraphics[height=3.3cm]{figures/overdamped_free_response.pdf}
-        \caption{Non-oscillatory decay to equilibrium.}
-        \label{fig:overdamped-response}
-    \end{subfigure}
-    \caption{Qualitative pole locations and free response in the overdamped case.}
-    \label{fig:overdamped-summary}
-\end{figure}
-
-For critical damping, \(c^2=4mk\), the poles coincide. Writing
-\(\alpha=c/(2m)\), the repeated pole produces a term proportional to
-\(te^{-\alpha t}\), and the response is
-\begin{equation}
-    x_f(t)=x_0(1+\alpha t)e^{-\alpha t}.
-    \label{eq:free-critical}
-\end{equation}
-
-For the underdamped case, \(c^2<4mk\), define
-\[
-    \omega_n=\sqrt{\frac{k}{m}},
-    \qquad
-    \omega_d=\sqrt{\omega_n^2-\alpha^2}.
-\]
-Combining the complex-conjugate terms in Equation~\eqref{eq:free-distinct}
-gives the real response
-\begin{equation}
-    x_f(t)=x_0e^{-\alpha t}
-    \left[
-        \cos(\omega_dt)
-        +\frac{\alpha}{\omega_d}\sin(\omega_dt)
-    \right].
-    \label{eq:free-underdamped}
-\end{equation}
-The factor \(e^{-\alpha t}\) controls the decay rate, while \(\omega_d\)
-determines the oscillation frequency. This free-response analysis identifies
-the transient part of the motion; evaluating vibration isolation under road
-excitation additionally requires the non-zero input \(y(t)\).
-
-\subsection{Step Response}
-
-Consider an idealised road step \(y(t)=Y_0u(t)\), with the system at rest for
-\(t<0\). Since \(Y(s)=Y_0/s\), Equation~\eqref{eq:transfer-function} gives
-\begin{equation}
-    X(s)=\frac{Y_0(cs+k)}{s(ms^2+cs+k)}.
-    \label{eq:step-transform}
-\end{equation}
-The pole at \(s=0\) is introduced by the step input; the two system poles remain
-\(s_+\) and \(s_-\). For distinct poles, partial fractions give
-\[
-    \frac{X(s)}{Y_0}
-    =\frac{1}{s}
-    -\frac{s_+}{s_+-s_-}\frac{1}{s-s_+}
-    +\frac{s_-}{s_+-s_-}\frac{1}{s-s_-},
-\]
-and hence
-\begin{equation}
-    x(t)=Y_0\left[
-        1+\frac{s_-e^{s_-t}-s_+e^{s_+t}}{s_+-s_-}
-    \right].
-    \label{eq:step-distinct}
-\end{equation}
-For critical damping this limiting expression becomes
-\begin{equation}
-    x(t)=Y_0\left[1+(\alpha t-1)e^{-\alpha t}\right],
-    \label{eq:step-critical}
-\end{equation}
-whereas for the underdamped case it can be written as
-\begin{equation}
-    x(t)=Y_0\left\{1-e^{-\alpha t}\left[
-        \cos(\omega_dt)-\frac{\alpha}{\omega_d}\sin(\omega_dt)
-    \right]\right\}.
-    \label{eq:step-underdamped}
-\end{equation}
-The final-value theorem confirms that \(x(t)\to Y_0\). The initial road jump is
-an idealisation: its infinite velocity produces an impulsive damper force, so a
-smooth bump would be more realistic.
-
-\subsection{Sinusoidal Road Response}
-
-For the causal input \(y(t)=Y_0\sin(\omega t)u(t)\),
-\[
-    Y(s)=\frac{Y_0\omega}{s^2+\omega^2},
-    \qquad
-    X(s)=\frac{Y_0\omega(cs+k)}
-    {(s^2+\omega^2)(ms^2+cs+k)}.
-\]
-The poles \(s_\pm\) generate a decaying transient, while \(s=\pm i\omega\)
-come from the forcing and generate the steady oscillation. Define
-\begin{equation}
-    H(i\omega)=\frac{k+ic\omega}{k-m\omega^2+ic\omega}
-    =M(\omega)e^{i\phi(\omega)},
-    \label{eq:frequency-response}
-\end{equation}
-where
+The determinant of the coefficient matrix is
 \begin{align}
-    M(\omega)
-    &=\sqrt{\frac{k^2+c^2\omega^2}
-    {(k-m\omega^2)^2+c^2\omega^2}}, \\
-    \phi(\omega)
-    &=\operatorname{atan2}(c\omega,k)
-      -\operatorname{atan2}(c\omega,k-m\omega^2).
+    D(s)
+    &=
+    \bigl[m_Tl_1(l_1s^2+g)\bigr]
+    \bigl[m_2l_2(l_2s^2+g)\bigr]
+    -(m_2l_1l_2s^2)^2 \notag\\
+    &=m_2l_1l_2P(s),
+    \label{eq:laplace-determinant}
 \end{align}
-For distinct system poles, the complete zero-state response is
+where the common characteristic polynomial is
 \begin{equation}
-    x(t)=Y_0M\sin(\omega t+\phi)
-    +C_+e^{s_+t}+C_-e^{s_-t},
-    \label{eq:sine-complete}
+    P(s)=m_1l_1l_2s^4
+    +m_Tg(l_1+l_2)s^2
+    +m_Tg^2.
+    \label{eq:characteristic-polynomial}
 \end{equation}
-with
-\[
-    C_+=\frac{Y_0M(s_-\sin\phi-\omega\cos\phi)}{s_+-s_-},
-    \qquad
-    C_-=\frac{Y_0M(\omega\cos\phi-s_+\sin\phi)}{s_+-s_-}.
-\]
-The exponential terms vanish for \(c>0\), leaving the steady response.
+Inverting the \(2\times2\) matrix in
+Equation~\eqref{eq:expanded-laplace-system} gives the two acceleration-to-angle
+transfer functions
+\begin{align}
+    H_1(s)
+    =\frac{\Theta_1(s)}{U(s)}
+    &=-\frac{m_1l_2s^2+m_Tg}{P(s)},
+    \label{eq:transfer-theta1}\\
+    H_2(s)
+    =\frac{\Theta_2(s)}{U(s)}
+    &=-\frac{m_Tg}{P(s)}.
+    \label{eq:transfer-theta2}
+\end{align}
+Both angles therefore have the same poles, although their numerators and hence
+their modal amplitudes are different.
 
-Introduce the frequency ratio \(r=\omega/\omega_n\) and damping ratio
-\(\zeta=c/(2m\omega_n)\). The displacement transmissibility is
+The natural frequencies are obtained from \(P(s)=0\). Because the model is
+undamped, its poles lie at \(s=\pm\mathrm i\omega\). Substitution of
+\(s=\mathrm i\omega\) into Equation~\eqref{eq:characteristic-polynomial}
+produces
 \begin{equation}
-    T(r)=\frac{|X|}{|Y|}
-    =\sqrt{\frac{1+(2\zeta r)^2}
-    {(1-r^2)^2+(2\zeta r)^2}}.
-    \label{eq:transmissibility}
+    m_1l_1l_2\omega^4
+    -m_Tg(l_1+l_2)\omega^2
+    +m_Tg^2=0.
+    \label{eq:frequency-biquadratic}
 \end{equation}
-Differentiating \(T^2\) with respect to \(r^2\) gives the peak at
+This is only a quadratic equation in \(\omega^2\), rather than a general
+fourth-order equation. Its two positive solutions are
 \begin{equation}
-    r_{\mathrm{peak}}
-    =\sqrt{\frac{2}{1+\sqrt{1+8\zeta^2}}}.
-    \label{eq:resonant-ratio}
+    \omega_{1,2}^2=
+    \frac{
+        m_Tg(l_1+l_2)
+        \mp g\sqrt{m_T^2(l_1+l_2)^2-4m_1m_Tl_1l_2}
+    }{
+        2m_1l_1l_2
+    },
+    \qquad 0<\omega_1<\omega_2.
+    \label{eq:natural-frequencies}
 \end{equation}
-Thus the body follows slow road motion because \(T(0)=1\), is amplified near
-resonance, and is isolated at high frequency because \(T(r)\to0\). Increasing
-damping reduces the resonant peak but increases high-frequency transmission,
-which exposes an engineering trade-off rather than a universally optimal value.
-The phase is also physically relevant: it is close to zero at low frequency
-and approaches \(-\pi/2\) at high frequency. Isolation therefore changes not
-only the amplitude of the body motion but also its timing relative to the road.
+Consequently,
+\begin{equation}
+    P(s)=m_1l_1l_2
+    (s^2+\omega_1^2)(s^2+\omega_2^2),
+    \label{eq:modal-factorisation}
+\end{equation}
+so the four system poles are
+\(s=\pm\mathrm i\omega_1\) and \(s=\pm\mathrm i\omega_2\). These two modal
+frequencies determine the impulse timings used by the input shaper.
 
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=4.2cm]{figures/step_response_comparison.pdf}
-        \caption{Normalised response to a road step.}
-        \label{fig:step-response-comparison}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.49\textwidth}
-        \centering
-        \includegraphics[height=4.2cm]{figures/sinusoidal_transmissibility.pdf}
-        \caption{Sinusoidal displacement transmissibility.}
-        \label{fig:sinusoidal-transmissibility}
-    \end{subfigure}
-    \caption{Forced-response behaviour for representative damping ratios.}
-    \label{fig:forced-response-comparison}
-\end{figure}
+{\footnotesize
+\begin{thebibliography}{9}
+\setlength{\itemsep}{0pt}
 
-\section{Conclusion}
+\bibitem{AbdelRahman2003}
+E.~M. Abdel-Rahman, A.~H. Nayfeh, and Z.~N. Masoud,
+``Dynamics and control of cranes: A review,''
+\emph{J. Vib. Control}, vol.~9, no.~7, pp.~863--908, 2003.
+\url{https://doi.org/10.1177/1077546303009007007}.
 
-Starting from Newton's second law, this study derived a single-degree-of-freedom
-base-excitation model and used the Laplace transform to obtain its free, step
-and sinusoidal responses. For \(m,c,k>0\), the system poles lie in the left
-half-plane, so all transient components decay. The step response approaches the
-road height \(Y_0\), while the sinusoidal response is governed by the
-displacement transmissibility \(T(r)\). Resonant amplification occurs near
-\(r=1\), whereas effective vibration isolation begins when \(r>\sqrt{2}\).
-Increasing damping lowers the resonant peak but increases high-frequency
-transmission, demonstrating a design trade-off rather than a universally
-optimal damping value. The model is limited by its linear elements, idealised
-step input, and neglected tyre and wheel dynamics. A two-degree-of-freedom
-quarter-car model could capture wheel-hop resonance and provide a more realistic
-extension.
+\bibitem{Singhose2008}
+W.~Singhose, D.~Kim, and M.~Kenison,
+``Input shaping control of double-pendulum bridge crane oscillations,''
+\emph{J. Dyn. Syst. Meas. Control}, vol.~130, no.~3, art.~034504, 2008.
+\url{https://doi.org/10.1115/1.2907363}.
+
+\bibitem{SingerSeering1990}
+N.~C. Singer and W.~P. Seering,
+``Preshaping command inputs to reduce system vibration,''
+\emph{J. Dyn. Syst. Meas. Control}, vol.~112, no.~1, pp.~76--82, 1990.
+\url{https://doi.org/10.1115/1.2894142}.
+
+\end{thebibliography}
+}
 
 \end{document}
